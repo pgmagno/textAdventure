@@ -4,14 +4,13 @@ public class Map {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_UNDERSCORE = "\u001B[0;4m";
 
-    Room[][] labyrinth = new Room[3][3];
+    Room[][] labyrinth;
 
     public Map (Room[][] labyrinth) {
         this.labyrinth = labyrinth;
     }
 
     public void  printMap () {
-
 
         for (int i = 0; i < labyrinth.length; i++){
             for (int j = 0; j < labyrinth[0].length; j++) {
