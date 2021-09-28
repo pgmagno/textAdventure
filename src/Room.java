@@ -1,12 +1,11 @@
 public class Room {
 
-
-    char[] directions = {'N', 'S', 'W', 'E'};
+    String[] directions = {"Norte", "Sul", "Oeste", "Leste"};
     String objectInTheRoom = "";
     String description = "";
     boolean position = false;
 
-    public Room (char[] directions, String objectInTheRoom, String description, boolean position) {
+    public Room (String[] directions, String objectInTheRoom, String description, boolean position) {
         this.directions = directions;
         this.objectInTheRoom = objectInTheRoom;
         this.description = description;
