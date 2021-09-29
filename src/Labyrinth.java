@@ -5,63 +5,87 @@ public class Labyrinth {
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_ITABlue = "\u001B[36;3m";
+    public static final String ANSI_ITAPurple = "\u001B[34;3m";
 
 
 
     public Labyrinth() {
         labyrinth[0][0] = new Room(
+                new String[]{},
                 new String[]{"SUL", "LESTE"},
-                "knife",
                 "era ua vez...",
-                "Descrição do quarto após inspeção",
+                new String [][] {{"SALA","Descrição do quarto após inspeção"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
+                new String[]{"EXPLOSIVO", "PORTA"},
                 false);
         labyrinth[0][1] = new Room(
+                new String[]{},
                 new String[]{"OESTE", "LESTE"},
-                "knife",
                 "era ua vez...",
-                "Descrição do quarto após inspeção",
+                new String [][] {{"SALA","Descrição do quarto após inspeção"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
+                new String[]{"EXPLOSIVO", "PORTA"},
                 false);
         labyrinth[0][2] = new Room(
+                new String[]{},
                 new String[]{"SUL", "OESTE"},
-                "knife",
                 "era ua vez...",
-                "Descrição do quarto após inspeção",
+                new String [][] {{"SALA","Descrição do quarto após inspeção"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
+                new String[]{"EXPLOSIVO", "PORTA"},
                 false);
         labyrinth[1][0] = new Room(
+                new String[]{},
                 new String[]{"NORTE"},
-                "knife",
-                "Você olha ao redor e não encontra nada",
-                "Descrição do quarto após inspeção",
+                "era ua vez...",
+                new String [][] {{"SALA","Descrição do quarto após inspeção"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
+                new String[]{"EXPLOSIVO", "PORTA"},
                 false);
         labyrinth[1][1] = new Room(
+                new String[]{},
                 new String[]{"SUL", "LESTE"},
-                "knife",
                 "era ua vez...",
-                "Descrição do quarto após inspeção",
+                new String [][] {{"SALA","Descrição do quarto após inspeção"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
+                new String[]{"EXPLOSIVO", "PORTA"},
                 false);
         labyrinth[1][2] = new Room(
+                new String[]{},
                 new String[]{"NORTE", "SUL", "OESTE"},
-                "knife",
                 "era ua vez...",
-                "Descrição do quarto após inspeção",
+                new String [][] {{"SALA","Descrição do quarto após inspeção"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
+                new String[]{"EXPLOSIVO", "PORTA"},
                 false);
         labyrinth[2][0] = new Room(
+                new String[]{},
                 new String[]{"LESTE"},
-                "knife",
-                "era ua vez...",
-                "Descrição do quarto após inspeção",
+                """
+                        O quarto escuro a sua volta tem um cheiro fétido. O chão feito de pedras ásperas e
+                        irregulares percorre toda a extensão do quarto. Não há nada em particular que chame atenção
+                        senão uma pedra solta.""",
+                new String [][] {{"SALA","Você encontra uma chave debaixo de uma pedra. Um bilhete diz: \"agora estamos quites.\""},
+                                {"PORTA","Uma grade de metal, no meio uma fechadura de metal."},
+                                {"FECHADURA","metal enferrujado..."},
+                {"CHAVE", "uma chave comum"}},
+                new String[]{"CHAVE", "FECHADURA"},
                 true);
         labyrinth[2][1] = new Room(
+                new String[]{},
                 new String[]{"NORTE", "OESTE"},
-                "knife",
                 "era ua vez...",
-                "Descrição do quarto após inspeção",
+                new String [][] {{"SALA","Descrição do quarto após inspeção"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
+                new String[]{"EXPLOSIVO", "PORTA"},
                 false);
         labyrinth[2][2] = new Room(
+                new String[]{},
                 new String[]{"NORTE"},
-                "knife",
                 "era ua vez...",
-                "Descrição do quarto após inspeção",
+                new String [][] {{"SALA","Descrição do quarto após inspeção"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
+                new String[]{"EXPLOSIVO", "PORTA"},
                 false);
     }
 
@@ -89,6 +113,7 @@ public class Labyrinth {
 
         return labyrinth[position[0]][position[1]].directions;
     }
+
 
     public String getIntroduction() {
 
@@ -151,32 +176,17 @@ public class Labyrinth {
         int[] position = getCurrentPosition();
         String resultOfInspection = "";
 
-        switch (pointOfInterest) {
-
-            case "SALA":
-                resultOfInspection = labyrinth[position[0]][position[1]].description;
-                break;
-            case "OBJETO":
-                resultOfInspection = labyrinth[position[0]][position[1]].objectInTheRoom;
-                break;
-            default:
-                System.out.println("Não há nada para inspecionar.");
-
+        for(int i = 0; i < labyrinth[position[0]][position[1]].description.length; i++) {
+            if (pointOfInterest.equals(labyrinth[position[0]][position[1]].description[i][0])) {
+                resultOfInspection = labyrinth[position[0]][position[1]].description[i][1];
+            }
         }
 
+        if (resultOfInspection.equals("")) {
+            resultOfInspection = "Você examina minuciosamente, mas nada chama a sua atenção.";
+        }
         return resultOfInspection;
     }
 }
 
 
-
-
-
-
-
-//System.out.print("Direções possíveis: ");
-//        for(int k = 0; k < labyrinth[i][j].directions.length; k++) {
-//        System.out.print(italicPurple + labyrinth[i][j].directions[k] + " " + ANSI_RESET);
-//        }
-//        System.out.println();
-//        break loopDirection;

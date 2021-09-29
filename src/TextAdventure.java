@@ -29,7 +29,9 @@ public class TextAdventure {
         System.out.println(ANSI_ITABlue + "Você acorda em um quarto escuro e pequeno. Uma forte dor perfurante atravessa seu crânio.\n" +
                 "Você aguarda alguns minutos naquele estado letárgico e pouco a pouco a sua memória começa a clarear. Ainda um pouco\n" +
                 "desnorteado você se dá conta de que a última coisa que se lembra era de estar observando um estranho no canto da taverna.\n" +
-                "Ele parecia familiar. Embora estivesse sozinho, parecia estar conversando com alguém." + ANSI_RESET);
+                "Ele parecia familiar. Embora estivesse sozinho, parecia estar conversando com alguém. A partir daí você não se lembra de nada." + ANSI_RESET);
+
+        System.out.println(ANSI_ITABlue + game.getIntroduction() + ANSI_RESET);
 
         Scanner playerInput = new Scanner(System.in);
 
