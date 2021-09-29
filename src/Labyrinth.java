@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Labyrinth {
 
@@ -7,6 +8,7 @@ public class Labyrinth {
     public static final String ANSI_ITABlue = "\u001B[36;3m";
     public static final String ANSI_ITAPurple = "\u001B[34;3m";
 
+    ArrayList<String> playerInventory = new ArrayList<>();
 
 
     public Labyrinth() {
@@ -65,10 +67,10 @@ public class Labyrinth {
                         O quarto escuro a sua volta tem um cheiro fétido. O chão feito de pedras ásperas e
                         irregulares percorre toda a extensão do quarto. Não há nada em particular que chame atenção
                         senão uma pedra solta.""",
-                new String [][] {{"SALA","Você encontra uma chave debaixo de uma pedra. Um bilhete diz: \"agora estamos quites.\""},
-                                {"PORTA","Uma grade de metal, no meio uma fechadura de metal."},
-                                {"FECHADURA","metal enferrujado..."},
-                {"CHAVE", "uma chave comum"}},
+                new String [][] {{"SALA","Você encontra uma chave debaixo de uma pedra. Um bilhete diz: \"agora estamos quites.\"","Não"},
+                                {"PORTA","Uma grade de metal, no meio uma fechadura de metal.", "Não"},
+                                {"FECHADURA","metal enferrujado...", "Não"},
+                                {"CHAVE", "uma chave comum", "Sim"}},
                 new String[]{"CHAVE", "FECHADURA"},
                 true);
         labyrinth[2][1] = new Room(
@@ -113,7 +115,6 @@ public class Labyrinth {
 
         return labyrinth[position[0]][position[1]].directions;
     }
-
 
     public String getIntroduction() {
 
@@ -176,17 +177,83 @@ public class Labyrinth {
         int[] position = getCurrentPosition();
         String resultOfInspection = "";
 
-        for(int i = 0; i < labyrinth[position[0]][position[1]].description.length; i++) {
-            if (pointOfInterest.equals(labyrinth[position[0]][position[1]].description[i][0])) {
-                resultOfInspection = labyrinth[position[0]][position[1]].description[i][1];
+        if (playerInventory.size() > 0) {
+
+            for (int p = 0; p < playerInventory.size(); p++) {
+                if (pointOfInterest.equals(playerInventory.get(p))) {
+                    for(int i = 0; i < labyrinth.length; i++) {
+                        for (int j = 0; j < labyrinth[i].length; j++) {
+                            for (int k = 0; k < labyrinth[i][j].pointsOfInterest.length; k++) {
+                                if (pointOfInterest.equals(labyrinth[i][j].pointsOfInterest[k][0])) {
+                                    resultOfInspection = labyrinth[i][j].pointsOfInterest[k][1];
+                                    return resultOfInspection;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        for(int i = 0; i < labyrinth[position[0]][position[1]].pointsOfInterest.length; i++) {
+            if (pointOfInterest.equals(labyrinth[position[0]][position[1]].pointsOfInterest[i][0])) {
+                resultOfInspection = labyrinth[position[0]][position[1]].pointsOfInterest[i][1];
             }
         }
+
 
         if (resultOfInspection.equals("")) {
             resultOfInspection = "Você examina minuciosamente, mas nada chama a sua atenção.";
         }
         return resultOfInspection;
     }
+
+
+
+    public String takeItem(String pointOfInterest) {
+        int[] position = getCurrentPosition();
+
+        String resultOfTaking ="";
+
+        int counter = 0;
+        if (playerInventory.size() > 0) {
+            do {
+                if (playerInventory.get(counter).equals(pointOfInterest)) {
+                    resultOfTaking = "Você já pegou esse objeto.";
+                    return resultOfTaking;
+                }
+                counter++;
+            } while (counter < playerInventory.size());
+        }
+
+        for(int i = 0; i < labyrinth[position[0]][position[1]].pointsOfInterest.length; i++) {
+
+            if (pointOfInterest.equals(labyrinth[position[0]][position[1]].pointsOfInterest[i][0]) &&
+                    labyrinth[position[0]][position[1]].pointsOfInterest[i][2].equals("Sim")) {
+
+                playerInventory.add(labyrinth[position[0]][position[1]].pointsOfInterest[i][0]);
+
+                resultOfTaking = "Voce adicionou " + ANSI_ITABlue + labyrinth[position[0]][position[1]].pointsOfInterest[i][0] + ANSI_ITAPurple + " ao inventário.";
+                break;
+            } else if (pointOfInterest.equals(labyrinth[position[0]][position[1]].pointsOfInterest[i][0]) &&
+                    labyrinth[position[0]][position[1]].pointsOfInterest[i][2].equals("Não")) {
+
+                resultOfTaking = "Você não pode pegar isso.";
+                break;
+            } else {
+                resultOfTaking = "Nada foi adicionado";
+
+            }
+        }
+        System.out.println(playerInventory);
+        return resultOfTaking;
+    }
+
+    public ArrayList<String> checkInventory() {
+        return playerInventory;
+    }
+
 }
 
 

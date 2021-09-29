@@ -35,6 +35,8 @@ public class TextAdventure {
 
         Scanner playerInput = new Scanner(System.in);
 
+
+
         gameLoop:
         while (true) {
 
@@ -56,6 +58,9 @@ public class TextAdventure {
                         break;
                     case "INTRODUÇÃO":
                         System.out.println(ANSI_ITABlue + game.getIntroduction() + ANSI_RESET);
+                        break;
+                    case "INVENTÁRIO":
+                        System.out.println(ANSI_ITABlue + game.checkInventory() + ANSI_RESET);
                         break;
                     case "SAIR":
                         System.out.println("Obrigado por Jogar");
@@ -79,6 +84,9 @@ public class TextAdventure {
                         break;
                     case "INSPECIONAR":
                         System.out.println(ANSI_ITAPurple + game.inspect(playerCommand[1]) + ANSI_RESET);
+                        break;
+                    case "PEGAR":
+                        System.out.println(ANSI_ITAPurple + game.takeItem(playerCommand[1])+ ANSI_RESET);
                         break;
                     case "SAIR":
                         System.out.println("Obrigado por Jogar");
