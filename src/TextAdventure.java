@@ -88,11 +88,17 @@ public class TextAdventure {
                     case "PEGAR":
                         System.out.println(ANSI_ITAPurple + game.takeItem(playerCommand[1])+ ANSI_RESET);
                         break;
+                    case "USAR":
+                        System.out.println(ANSI_ITAPurple + game.trySolution(playerCommand[1],playerCommand[2])+ ANSI_RESET);
+                        break;
                     case "SAIR":
                         System.out.println("Obrigado por Jogar");
                         break gameLoop;
                     default:
                         System.out.println("Digite um comando válido");
+                }
+                if (game.gameOver()){
+                    break gameLoop;
                 }
             }
 

@@ -9,85 +9,112 @@ public class Labyrinth {
     public static final String ANSI_ITAPurple = "\u001B[34;3m";
 
     ArrayList<String> playerInventory = new ArrayList<>();
+    boolean endGame = false;
 
 
     public Labyrinth() {
         labyrinth[0][0] = new Room(
-                new String[]{},
                 new String[]{"SUL", "LESTE"},
-                "era ua vez...",
-                new String [][] {{"SALA","Descrição do quarto após inspeção"},
-                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
-                new String[]{"EXPLOSIVO", "PORTA"},
+                new String[]{"SUL", "LESTE"},
+                "Ao atravessar a porta, você encontra uma sala estreita.",
+                new String [][] {{"SALA","Não há nada aos lados, somente uma entrada ao sul","Não"},
+                        {"PORTA","Uma porta ornamentada se apresenta a sua frente.", "Não"}},
+                new String[]{},
                 false);
         labyrinth[0][1] = new Room(
-                new String[]{},
                 new String[]{"OESTE", "LESTE"},
-                "era ua vez...",
-                new String [][] {{"SALA","Descrição do quarto após inspeção"},
-                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
-                new String[]{"EXPLOSIVO", "PORTA"},
+                new String[]{"OESTE", "LESTE"},
+                "Voce atravessa a porta e encontra um corredor longo.",
+                new String [][] {{"SALA","Ao fundo, uma porta. Nos lados, o quadro de um homem de uniforme.", "Não"},
+                        {"PORTA","Uma porta comum.", "Não"},
+                        {"QUADROS","O quadro parece ter sido recentemente pintado. A tinta parece ser óleo e ainda não secou totalmente.","Não"}
+                },
+                new String[]{},
                 false);
         labyrinth[0][2] = new Room(
-                new String[]{},
+                new String[]{"SUL"},
                 new String[]{"SUL", "OESTE"},
-                "era ua vez...",
-                new String [][] {{"SALA","Descrição do quarto após inspeção"},
-                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
-                new String[]{"EXPLOSIVO", "PORTA"},
+                "Você atravessagem a passagem esculpida na pedra e encontra uma quarto totalmente branco.",
+                new String [][] {{"SALA","O quarto está totalmente limpo, existe uma porta à oeste. De cada lado, um botão.", "Não"},
+                        {"PORTA","Uma porta feita de metal. Existe um mecanismo central que conecta os dois botões.","Não"},
+                        {"BOTÃO", "Há somente uma indição Botão-alfa e Botão-ômega. Ao serem pressionados repetidamente, um som estridente se ouve.", "Não"},
+                        {"BOTÕES", "Há somente uma indição Botão-alfa e Botão-ômega. Ao serem pressionados repetidamente, um som estridente se ouve.", "Não"},
+                        {"BOTÃO-ALFA", "Um botão comum. A única coisa que chama atenção é a letra grega.", "Não"},
+                        {"BOTÃO-ÔMEGA", "Um botão comum. A única coisa que chama atenção é a letra grega.", "Não"}
+                },
+                new String[]{"BOTÃO-ÔMEGA", "BOTÃO-ALFA", "Ao acionar os botões na ordem correta, a porta se abre."},
                 false);
         labyrinth[1][0] = new Room(
                 new String[]{},
                 new String[]{"NORTE"},
-                "era ua vez...",
-                new String [][] {{"SALA","Descrição do quarto após inspeção"},
-                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
-                new String[]{"EXPLOSIVO", "PORTA"},
+                "Você entra na sala. É possível ouvir o som do vento lado de fora.",
+                new String [][] {{"SALA","Você ", "Não"},
+                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la", "Não"}},
+                new String[]{"BOMBA", "PORTA", "Game over!"},
                 false);
         labyrinth[1][1] = new Room(
-                new String[]{},
+                new String[]{"SUL"},
                 new String[]{"SUL", "LESTE"},
-                "era ua vez...",
-                new String [][] {{"SALA","Descrição do quarto após inspeção"},
-                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
-                new String[]{"EXPLOSIVO", "PORTA"},
+                "Você atravessa pela porta e olha um corredor. Ao final, um curva à leste",
+                new String [][] {{"SALA","""
+                                            Ao andar pela sala nada em especial chama sua atenção. Você continua e
+                                            vira a esquerda, você nota uma pequena escotilha com um mecanismo no canto
+                                            inferior direito.""", "Não"},
+                        {"ESCOTILHA","Uma porta pequena feita de metal maciço. Não se move ao empurrar.", "Não"},
+                        {"MECANISMO", "Um mecanismo antigo e rústico. É possível ver um encaixe hexagonal.","Não"}
+                },
+                new String[]{"MANIVELA", "MECANISMO", "Você gira a manivela e a escotilha lentamente se abre."},
                 false);
         labyrinth[1][2] = new Room(
-                new String[]{},
                 new String[]{"NORTE", "SUL", "OESTE"},
-                "era ua vez...",
-                new String [][] {{"SALA","Descrição do quarto após inspeção"},
-                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
-                new String[]{"EXPLOSIVO", "PORTA"},
+                new String[]{"NORTE", "SUL", "OESTE"},
+                "Você passa pela escotilha e entra em uma sala. À norte, uma passagem; à sul, um portão.",
+                new String [][] {{"SALA","Descrição do quarto após inspeção", "Não"},
+                        {"PORTÃO","Um portão metálico reforçado, porém destrancado. ", "Não"},
+                        {"PASSAGEM","Um buraco esculpido na pedra.", "Não"}
+                },
+                new String[]{},
                 false);
         labyrinth[2][0] = new Room(
                 new String[]{},
                 new String[]{"LESTE"},
                 """
                         O quarto escuro a sua volta tem um cheiro fétido. O chão feito de pedras ásperas e
-                        irregulares percorre toda a extensão do quarto. Não há nada em particular que chame atenção
-                        senão uma pedra solta.""",
-                new String [][] {{"SALA","Você encontra uma chave debaixo de uma pedra. Um bilhete diz: \"agora estamos quites.\"","Não"},
+                        irregulares percorre toda a extensão do quarto. Você está só. O zumbido estridente denuncia
+                        a presença de um silência absoluto. Nada se ouve.""",
+                new String [][] {{"SALA", """
+                                            Ao inspecionar a sala você observa um pedra solta bem ao lado de onde você acordou.
+                                            Ao movê-la, você encontra uma chave debaixo de uma pedra. Ao lado, um bilhete que diz:
+                                            "agora estamos quites.\"""","Não"},
                                 {"PORTA","Uma grade de metal, no meio uma fechadura de metal.", "Não"},
                                 {"FECHADURA","metal enferrujado...", "Não"},
                                 {"CHAVE", "uma chave comum", "Sim"}},
-                new String[]{"CHAVE", "FECHADURA"},
+                new String[]{"CHAVE", "FECHADURA", "Com dificuldade você gira a chave e a porta se abre com um rangido..."},
                 true);
         labyrinth[2][1] = new Room(
-                new String[]{},
                 new String[]{"NORTE", "OESTE"},
-                "era ua vez...",
-                new String [][] {{"SALA","Descrição do quarto após inspeção"},
-                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
-                new String[]{"EXPLOSIVO", "PORTA"},
+                new String[]{"NORTE", "OESTE"},
+                """
+                              Você atravessa a grade que divide as duas salas. O ar nesta parece mais límpido. Você
+                              enche os pulmões e se sente ligeiramente recuperado.""",
+                new String [][] {{"SALA","""
+                                        Aqui já se pode ver um pouco melhor. A sala está totalmente vazia, senão por uma mesa
+                                        no fundo e uma porta entreaberta na direção norte.""", "Não"},
+                        {"PORTA","Uma porta de madeira comum.", "Não"},
+                        {"MESA","Uma mesa metálica, sobre ela vários papéis velhos e uma manivela.","Não"},
+                        {"MANIVELA", "Uma manivela enferrujada, o cabo está gasto mas o encaixe hexagonal aparenta estar em bom estado.", "Sim"}
+                            },
+                new String[]{},
                 false);
         labyrinth[2][2] = new Room(
-                new String[]{},
                 new String[]{"NORTE"},
-                "era ua vez...",
-                new String [][] {{"SALA","Descrição do quarto após inspeção"},
-                        {"PORTA","Uma porta de madeira maciça, você sente que somente um impacto enorme seria capaz de movê-la"}},
-                new String[]{"EXPLOSIVO", "PORTA"},
+                new String[]{"NORTE"},
+                "Você abre o portão e entra em uma sala pequena.",
+                new String [][] {{"SALA","""
+                        Várias prateleiras circundam toda a sala. Em uma delas,
+                        um objeto metálico cintila com um brilho tênue. Trata-se de uma bomba.""","Não"},
+                        {"BOMBA","Após inspecionar a bomba, você conclui que se trata de um artefato explosivo caseiro.", "Sim"}},
+                new String[]{},
                 false);
     }
 
@@ -250,10 +277,46 @@ public class Labyrinth {
         return resultOfTaking;
     }
 
+    public void unlockDoors (int pos1, int pos2) {
+        int[] position = getCurrentPosition();
+        labyrinth[pos1][pos2].directions = labyrinth[pos1][pos2].directionsOpened;
+    }
+
     public ArrayList<String> checkInventory() {
         return playerInventory;
     }
 
+    public String trySolution (String parameter, String parameter2) {
+        int[] position = getCurrentPosition();
+
+        String resultOfTrying;
+
+        if (labyrinth[position[0]][position[1]].solution[0].equals(parameter)
+            && labyrinth[position[0]][position[1]].solution[1].equals(parameter2)){
+
+            unlockDoors(position[0], position[1]);
+            resultOfTrying = labyrinth[position[0]][position[1]].solution[2];
+        } else {
+            resultOfTrying = "Nada acontece.";
+        }
+
+        if (resultOfTrying.equals("Game over!")) {
+
+            endGame = true;
+        }
+
+        return resultOfTrying;
+    }
+
+    public boolean gameOver() {
+       if (endGame) {
+           System.out.println("Após a fumaça clarear, uma brisa fresca invade a os escombros da saída forçada. Parabéns, você escapou!");
+           System.out.println("Obrigado por jogar!");
+       }
+            return endGame;
+    }
 }
+
+
 
 
